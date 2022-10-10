@@ -10,7 +10,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  runApp(ChatApp());
 }
 
 class ChatApp extends StatelessWidget {
@@ -30,19 +30,21 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          ElevatedButton(
-            child: Text('ログイン'),
-            onPressed: () async {
-              await Navigator.of(context)
-                  .pushReplacement(MaterialPageRoute(builder: (context) {
-                return ChatPage();
-              }));
-            },
-          )
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              child: Text('ログイン'),
+              onPressed: () async {
+                await Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return ChatPage();
+                }));
+              },
+            )
+          ],
+        ),
       ),
     );
   }
