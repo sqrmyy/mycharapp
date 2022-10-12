@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TextField(
+              TextFormField(
                 decoration: InputDecoration(labelText: 'メールアドレス'),
                 onChanged: (String value) {
                   setState(() {
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
-              TextField(
+              TextFormField(
                 decoration: InputDecoration(labelText: 'パスワード'),
                 obscureText: true,
                 onChanged: (String value) {
@@ -86,6 +86,31 @@ class _LoginPageState extends State<LoginPage> {
                     } catch (e) {
                       setState(() {
                         infoText = "登録に失敗しました:${e.toString()}";
+                      });
+                    }
+                  },
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                width: double.infinity,
+                child: OutlinedButton(
+                  child: Text('ログイン'),
+                  onPressed: () async {
+                    try {
+                      final FirebaseAuth auth = FirebaseAuth.instance;
+                      await auth.signInWithEmailAndPassword(
+                        email: email,
+                        password: password,
+                      );
+                      await Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (context) {
+                          return ChatPage();
+                        }),
+                      );
+                    } catch (e) {
+                      setState(() {
+                        infoText = "ログインに失敗しました:${e.toString()}";
                       });
                     }
                   },
